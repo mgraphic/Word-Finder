@@ -41,7 +41,6 @@ router.all(
             res.status((isError && err.response?.status) || 500).send(
                 isError ? err.message : err
             );
-            res.json((err as AxiosError).request.data);
         }
     }
 );

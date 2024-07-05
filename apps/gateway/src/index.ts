@@ -10,7 +10,8 @@ const app = express();
 app.use(cors());
 app.use(json());
 app.use(compression());
-app.use(router);
+
+app.all('*', router);
 
 const dirname = new URL('.', import.meta.url).pathname;
 const publicPath = path.resolve(dirname, '../public');

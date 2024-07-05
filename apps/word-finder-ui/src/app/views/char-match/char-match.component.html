@@ -1,0 +1,20 @@
+<form (ngSubmit)="search()" class="mb-3">
+  <div class="input-group mb-3">
+    <input
+      name="search-input"
+      type="text"
+      class="form-control"
+      placeholder="Search for characters"
+      aria-label="Search for characters"
+      [(ngModel)]="characters"
+      #searchInput
+    />
+    <button class="btn btn-outline-secondary" type="submit">Search</button>
+  </div>
+
+  <div class="form-text">
+    Use the wilcard <em>? (or space)</em> for any single character
+  </div>
+</form>
+
+<app-words-list-result [wordList]="foundWords()"></app-words-list-result>

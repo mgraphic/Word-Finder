@@ -1,0 +1,41 @@
+<div class="wrapper">
+  <section class="container mt-3 mb-3">
+    <nav>
+      <button
+        class="btn btn-outline-secondary"
+        routerLinkActive="active"
+        routerLink="char-match"
+      >
+        Characture Matching
+      </button>
+      <button
+        class="btn btn-outline-secondary"
+        routerLinkActive="active"
+        routerLink="contains-match"
+      >
+        Contains Matching
+      </button>
+      <button
+        class="btn btn-outline-secondary"
+        routerLinkActive="active"
+        routerLink="words-match"
+      >
+        Word Matching
+      </button>
+    </nav>
+  </section>
+
+  <section class="container main mb-3 p-3">
+    <router-outlet />
+    @if (showScrollTop()) {
+      <button
+        id="scroll-top"
+        class="btn btn-outline-secondary"
+        aria-label="Scroll to top"
+        (click)="gotoTop()"
+      >
+        👆
+      </button>
+    }
+  </section>
+</div>

@@ -1,0 +1,19 @@
+@if (wordList().length > 0) {
+  <div>Found {{ wordList().length }} words</div>
+
+  @for (group of sortedWordList().groups; track group.count) {
+    Size: {{ group.count }}
+
+    <ul>
+      @for (word of group.words; track word) {
+        <li>
+          <button class="btn btn-link" (click)="openDictionary(word)">
+            {{ word }}
+          </button>
+        </li>
+      }
+    </ul>
+  }
+} @else {
+  <div>No words found</div>
+}

@@ -1,0 +1,16 @@
+{
+  "/ws-api": {
+    "target": "http://localhost:3001",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": false,
+    "pathRewrite": { "^/ws-api": "/" }
+  },
+  "/dict-api": {
+    "target": "https://api.dictionaryapi.dev/api",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": { "^/dict-api": "/" }
+  }
+}

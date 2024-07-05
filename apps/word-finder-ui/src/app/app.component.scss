@@ -1,0 +1,29 @@
+@use 'bootstrap/scss/bootstrap';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+nav {
+    display: flex;
+    justify-content: space-evenly;
+
+    button.active {
+        background-color: bootstrap.$primary;
+    }
+}
+
+.main {
+    padding: 0;
+    flex: 1;
+    border: 1px solid bootstrap.$primary;
+}
+
+#scroll-top {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 1.7rem;
+}

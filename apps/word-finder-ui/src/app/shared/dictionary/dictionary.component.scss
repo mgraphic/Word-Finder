@@ -1,0 +1,69 @@
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.entry {
+  border-bottom: 1px solid gray;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.phonetic {
+  margin-bottom: 1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &-text {
+    font-style: italic;
+  }
+
+  &-icon {
+    margin-bottom: -0.5rem;
+    margin-left: 1rem;
+  }
+
+  &-audio {
+    cursor: pointer;
+  }
+
+  &-source {
+    text-transform: lowercase;
+    font-size: smaller;
+  }
+}
+
+.meanings {
+  &-part {
+    font-style: italic;
+    font-weight: 500;
+  }
+}
+
+.definition {
+  &-example {
+    margin: 0.2rem 0;
+    font-style: italic;
+  }
+}
+
+.synant {
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
+
+  li {
+    font-style: italic;
+  }
+
+  &-header {
+    font-weight: 500;
+  }
+}

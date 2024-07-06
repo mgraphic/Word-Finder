@@ -22,4 +22,9 @@ export const routes: Route[] = [
                 (m) => m.WordsMatchComponent
             ),
     },
+    {
+        path: '',
+        redirectTo: 'char-match',
+        pathMatch: 'full',
+    },
 ];

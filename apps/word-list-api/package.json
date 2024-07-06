@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "main": "src/index.ts",
     "type": "module",
+    "engines": {
+        "node": ">=18.20.3"
+    },
     "scripts": {
         "start": "nodemon -e ts -w ./src -x npm run watch:serve",
         "watch:serve": "node --loader ts-node/esm src/index.ts"

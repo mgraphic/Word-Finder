@@ -1,12 +1,14 @@
 import { readFile } from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const dirname = new URL('.', import.meta.url).pathname;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function generateWordsList(lang: string): Promise<string[]> {
     return new Promise((resolve, reject) => {
         readFile(
-            path.resolve(dirname, 'db', lang, 'words.db'),
+            path.resolve(__dirname, 'db', lang, 'words.db'),
             'utf8',
             (err, data: string) => {
                 if (err) {

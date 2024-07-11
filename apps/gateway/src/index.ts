@@ -4,6 +4,7 @@ import path from 'path';
 import { environment } from './environment';
 import cors from 'cors';
 import router from './api-router';
+import { fileURLToPath } from 'url';
 
 const app = express();
 
@@ -13,8 +14,11 @@ app.use(compression());
 
 app.all('*', router);
 
-const dirname = new URL('.', import.meta.url).pathname;
-const publicPath = path.resolve(dirname, '../public');
+// const dirname = new URL('.', import.meta.url).pathname;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const publicPath = path.resolve(__dirname, '../public');
 
 app.use(express.static(publicPath));
 

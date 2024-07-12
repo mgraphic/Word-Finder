@@ -1,0 +1,22 @@
+services:
+    word-list-api:
+        build: ./apps/word-list-api
+        ports:
+            - '3001:3001'
+        volumes:
+            - .:/code
+        env_file: ./word-finder.docker.env
+        environment:
+            PORT: 3001
+
+    word-finder-gateway:
+        build: ./apps/gateway
+        ports:
+            - '3000:3000'
+        volumes:
+            - .:/code
+        env_file: ./word-finder.docker.env
+        environment:
+            PORT: 3000
+            # DICTIONARY_API_URL: https://api.dictionaryapi.dev/api
+            WORD_FINDER_API_URL: http://word-list-api:3001

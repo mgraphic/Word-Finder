@@ -1,0 +1,19 @@
+# Build and run containers
+# docker-compose up --build -d
+
+# List containers
+# docker ps
+
+# Stop and remove containers
+# docker-compose down
+
+services:
+    word-finder:
+        build: .
+        image: word-finder:v1
+        ports:
+            - 80:3000
+        expose:
+            - 80
+        environment:
+            - ACCESS_TOKEN=xyz

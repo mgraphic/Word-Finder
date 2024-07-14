@@ -9,11 +9,12 @@
 
 services:
     word-finder:
-        build: .
+        build:
+            context: .
+            args:
+                - ACCESS_TOKEN=${ACCESS_TOKEN}
         image: word-finder:v1
         ports:
             - 80:3000
         expose:
             - 80
-        environment:
-            - ACCESS_TOKEN=xyz

@@ -4,11 +4,13 @@ import { environment } from './environment';
 import { charMatchHandler } from './handlers/char-match.handler';
 import { containsMatchHandler } from './handlers/contains-match.handler';
 import { wordMatchHandler } from './handlers/word-match.handler';
+import rateLimit from 'express-rate-limit';
 
 const app = express();
 
 app.use(express.json());
 app.use(helmet());
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 15 }));
 app.use((req: Request, res: Response, next: NextFunction) => {
     if (environment.accessToken) {
         if (req.headers['x-access-token'] !== environment.accessToken) {

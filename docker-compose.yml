@@ -17,9 +17,6 @@ services:
             dockerfile: Dockerfile
         restart: always # because it is routing traffic to our entire app
         container_name: word-finder-gateway
-        environment:
-            - DICTIONARY_API_URL=${DICTIONARY_API_URL}
-            - DOMAIN=${DOMAIN}
         ports:
             - '80:80'
         expose:
@@ -44,7 +41,6 @@ services:
             dockerfile: Dockerfile
             args:
                 - ACCESS_TOKEN=${ACCESS_TOKEN}
-        # image: word-finder:v1
         container_name: word-finder-ui
         ports:
             - 3000:3000

@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "3de7de84-5803-4496-b2a3-6a7b668df87e",
+		"name": "Word Match",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10222916"
+	},
+	"item": [
+		{
+			"name": "Free Dictionary API",
+			"item": [
+				{
+					"name": "Free Dictionary API (V1)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.dictionaryapi.dev/api/v1/entries/en/hello",
+							"protocol": "https",
+							"host": [
+								"api",
+								"dictionaryapi",
+								"dev"
+							],
+							"path": [
+								"api",
+								"v1",
+								"entries",
+								"en",
+								"hello"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Free Dictionary API (V2)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.dictionaryapi.dev/api/v2/entries/en/hello",
+							"protocol": "https",
+							"host": [
+								"api",
+								"dictionaryapi",
+								"dev"
+							],
+							"path": [
+								"api",
+								"v2",
+								"entries",
+								"en",
+								"hello"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Word Match API",
+			"item": [
+				{
+					"name": "Words Match",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Access-Token",
+								"value": "{{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3002/word-match/hello",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"word-match",
+								"hello"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Char Match",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Access-Token",
+								"value": "{{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/char-match/hel%3Fo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"char-match",
+								"hel%3Fo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contains Match",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Access-Token",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startsWith\": \"h\",\n    \"contains\": \"l\",\n    \"endsWith\": \"o\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/contains-match",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"contains-match"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

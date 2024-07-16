@@ -1,13 +1,10 @@
-FROM node:18-alpine
+FROM nginx:stable
 
-WORKDIR /app
+# Delete the default welcome to nginx page.
+RUN rm /usr/share/nginx/html/*
 
-COPY . .
+COPY ./nginx.conf.template /nginx.conf.template
 
-RUN npm ci
+EXPOSE 80
 
-RUN npm run build
-
-EXPOSE 3000
-
-CMD ["npm", "run", "prod"]
+CMD ["/bin/sh" , "-c" , "envsubst < /nginx.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]

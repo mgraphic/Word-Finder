@@ -4,6 +4,10 @@ _Developed with NodeJS V18.20.3_
 
 ---
 
+DEMO: http://word-finder.kmarshall.com
+
+---
+
 ## Installing & Running Locally
 
 ### Word List API

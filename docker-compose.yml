@@ -7,6 +7,9 @@
 # Stop and remove containers
 # docker-compose down
 
+# Remove all images
+# docker rmi -f $(docker images -aq)
+
 services:
     gateway:
         depends_on:

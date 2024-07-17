@@ -1,7 +1,7 @@
 FROM node:18.20.3-alpine AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm i
 # RUN npx ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points
 
 COPY . .

@@ -1,0 +1,31 @@
+Hello Keith,
+
+Thank you for contacting DigitalOcean support! Sorry to hear that you are facing an error of exit code: 137. We are happy to help you here.
+
+The exit code 137 typically indicates that the process was killed due to running out of memory. This is a common issue on servers with limited RAM. To resolve this issue firstly you have to check the memory usage using the following command:
+free -m
+
+If your droplet has limited RAM, you can create a swap file to provide additional virtual memory by following the below commands:
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+Additionally, if you want to make the swap file permanent, add it to your /etc/fstab file as per the below:
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+Also, please find the below link which will also give you more context about how to add Swap space:
+https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-20-04
+
+Furthermore, we also recommend you that kindly optimize the Dockerfile which helps to reduce memory usage during the build process.
+
+Please find the below link regarding how to optimize the Dockerfile:
+https://circleci.com/blog/tips-for-optimizing-docker-builds/
+https://docs.docker.com/build/cache/
+
+I hope this will find you helpful, if you have any further queries please let us know.
+
+Swimmingly,
+Ankush S
+Associate Cloud Support Engineer
+DigitalOcean

@@ -1,11 +1,11 @@
 # Build and run containers
-# docker-compose up --build -d
+# docker compose up --build -d
 
 # List containers
 # docker ps
 
 # Stop and remove containers
-# docker-compose down
+# docker compose down
 
 # Remove all images
 # docker rmi -f $(docker images -aq)

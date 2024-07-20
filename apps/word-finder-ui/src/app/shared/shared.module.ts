@@ -5,8 +5,6 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
-  // declarations: [],
-  // imports: [CommonModule, RouterModule],
-  exports: [CommonModule, FormsModule, RouterModule],
+    exports: [CommonModule, FormsModule, RouterModule],
 })
 export class SharedModule {}

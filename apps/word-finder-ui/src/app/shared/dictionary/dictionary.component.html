@@ -1,122 +1,131 @@
-<!--
-<audio controls>
-  <source src="https://www.computerhope.com/jargon/m/example.mp3" />
-</audio> -->
-
 @if (completed()) {
-  @if (response()) {
-    <!-- {{ response() | json }} -->
-    <h4>{{ lookup() | titlecase }}</h4>
-    <div class="entries">
-      @for (entry of response() || []; track entry) {
-        <div class="entry">
-          @for (phonetic of entry.phonetics; track phonetic) {
-            <div class="phonetic">
-              <span class="phonetic-text">
-                {{ phonetic.text || entry.word || response()?.word }}
-              </span>
+    @if (response()) {
+        <h4>{{ lookup() | titlecase }}</h4>
+        <div class="entries">
+            @for (entry of response() || []; track entry) {
+                <div class="entry">
+                    @for (phonetic of entry.phonetics; track phonetic) {
+                        <div class="phonetic">
+                            <span class="phonetic-text">
+                                {{
+                                    phonetic.text ||
+                                        entry.word ||
+                                        response()?.word
+                                }}
+                            </span>
 
-              @if (phonetic.audio) {
-                <button class="btn btn-text">
-                  <mat-icon
-                    class="phonetic-icon"
-                    aria-hidden="false"
-                    aria-label="Play audio"
-                    fontIcon="campaign"
-                    (click)="playAudio(phonetic.audio)"
-                  ></mat-icon>
-                </button>
-              }
+                            @if (phonetic.audio) {
+                                <button class="btn btn-text">
+                                    <mat-icon
+                                        class="phonetic-icon"
+                                        aria-hidden="false"
+                                        aria-label="Play audio"
+                                        fontIcon="campaign"
+                                        (click)="playAudio(phonetic.audio)"
+                                    ></mat-icon>
+                                </button>
+                            }
 
-              @if (phonetic.sourceUrl) {
-                <a
-                  class="phonetic-source"
-                  href="{{ phonetic.sourceUrl }}"
-                  target="_blank"
-                  >Source</a
-                >
-              }
-            </div>
-          }
-
-          <div class="meanings">
-            <h5>Meanings:</h5>
-            @for (meaning of entry.meanings; track meaning) {
-              <div class="meaning-part">{{ meaning.partOfSpeech }}</div>
-
-              <ol class="definitions">
-                @for (definition of meaning.definitions; track definition) {
-                  <div class="definition">
-                    <li class="definition-text">
-                      {{ definition.definition }}
-                    </li>
-                    @if (definition.example) {
-                      <div class="definition-example">
-                        {{ definition.example }}
-                      </div>
+                            @if (phonetic.sourceUrl) {
+                                <a
+                                    class="phonetic-source"
+                                    href="{{ phonetic.sourceUrl }}"
+                                    target="_blank"
+                                    >Source</a
+                                >
+                            }
+                        </div>
                     }
-                    <ng-container
-                      *ngTemplateOutlet="
-                        synonyms;
-                        context: { $implicit: definition.synonyms }
-                      "
-                    ></ng-container>
-                    <ng-container
-                      *ngTemplateOutlet="
-                        antonyms;
-                        context: { $implicit: definition.antonyms }
-                      "
-                    ></ng-container>
-                  </div>
-                }
-              </ol>
 
-              <ng-container
-                *ngTemplateOutlet="
-                  synonyms;
-                  context: { $implicit: meaning.synonyms }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  antonyms;
-                  context: { $implicit: meaning.antonyms }
-                "
-              ></ng-container>
+                    <div class="meanings">
+                        <h5>Meanings:</h5>
+                        @for (meaning of entry.meanings; track meaning) {
+                            <div class="meaning-part">
+                                {{ meaning.partOfSpeech }}
+                            </div>
+
+                            <ol class="definitions">
+                                @for (
+                                    definition of meaning.definitions;
+                                    track definition
+                                ) {
+                                    <div class="definition">
+                                        <li class="definition-text">
+                                            {{ definition.definition }}
+                                        </li>
+                                        @if (definition.example) {
+                                            <div class="definition-example">
+                                                {{ definition.example }}
+                                            </div>
+                                        }
+                                        <ng-container
+                                            *ngTemplateOutlet="
+                                                synonyms;
+                                                context: {
+                                                    $implicit:
+                                                        definition.synonyms,
+                                                }
+                                            "
+                                        ></ng-container>
+                                        <ng-container
+                                            *ngTemplateOutlet="
+                                                antonyms;
+                                                context: {
+                                                    $implicit:
+                                                        definition.antonyms,
+                                                }
+                                            "
+                                        ></ng-container>
+                                    </div>
+                                }
+                            </ol>
+
+                            <ng-container
+                                *ngTemplateOutlet="
+                                    synonyms;
+                                    context: { $implicit: meaning.synonyms }
+                                "
+                            ></ng-container>
+                            <ng-container
+                                *ngTemplateOutlet="
+                                    antonyms;
+                                    context: { $implicit: meaning.antonyms }
+                                "
+                            ></ng-container>
+                        }
+                    </div>
+                </div>
             }
-          </div>
         </div>
-      }
-    </div>
-  } @else {
-    Word not found
-  }
+    } @else {
+        Word not found
+    }
 } @else {
-  Loading...
+    Loading...
 }
 
 <ng-template #synonyms let-data>
-  @if (data.length > 0) {
-    <div class="synant synonym">
-      <div class="synant-header">Synonyms:</div>
-      <ul>
-        @for (item of data; track item) {
-          <li>{{ item }}</li>
-        }
-      </ul>
-    </div>
-  }
+    @if (data.length > 0) {
+        <div class="synant synonym">
+            <div class="synant-header">Synonyms:</div>
+            <ul>
+                @for (item of data; track item) {
+                    <li>{{ item }}</li>
+                }
+            </ul>
+        </div>
+    }
 </ng-template>
 
 <ng-template #antonyms let-data>
-  @if (data.length > 0) {
-    <div class="synant antonym">
-      <div class="synant-header">Antonyms:</div>
-      <ul>
-        @for (item of data; track item) {
-          <li>{{ item }}</li>
-        }
-      </ul>
-    </div>
-  }
+    @if (data.length > 0) {
+        <div class="synant antonym">
+            <div class="synant-header">Antonyms:</div>
+            <ul>
+                @for (item of data; track item) {
+                    <li>{{ item }}</li>
+                }
+            </ul>
+        </div>
+    }
 </ng-template>

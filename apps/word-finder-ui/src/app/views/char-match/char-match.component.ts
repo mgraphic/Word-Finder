@@ -1,17 +1,16 @@
 import {
-    AfterViewInit,
     Component,
-    ElementRef,
-    OnInit,
-    inject,
-    signal,
+    AfterViewInit,
     viewChild,
+    ElementRef,
+    signal,
+    inject,
 } from '@angular/core';
+import { take } from 'rxjs';
+import { SharedModule } from '../../shared/shared.module';
 import { WordFinderService } from '../../shared/word-finder.service';
 import { WordMatchResponse } from '../../shared/word-match.model';
-import { SharedModule } from '../../shared/shared.module';
 import { WordsListResultComponent } from '../../shared/words-list-result/words-list-result.component';
-import { take } from 'rxjs';
 
 @Component({
     selector: 'app-char-match',
@@ -21,13 +20,11 @@ import { take } from 'rxjs';
     styleUrl: './char-match.component.scss',
 })
 export class CharMatchComponent implements AfterViewInit {
-    searchInput = viewChild<ElementRef>('searchInput');
-    foundWords = signal<WordMatchResponse>([]);
-    characters = signal<string>('');
+    readonly searchInput = viewChild<ElementRef>('searchInput');
+    readonly foundWords = signal<WordMatchResponse>([]);
+    readonly characters = signal<string>('');
 
     private readonly wordFinderService = inject(WordFinderService);
-
-    // constructor(private wordFinderService: WordFinderService) {}
 
     ngAfterViewInit(): void {
         this.searchInput()?.nativeElement.addEventListener(

@@ -1,8 +1,8 @@
 export type WordListGroup = {
-  count: number;
-  words: string[];
+    count: number;
+    words: string[];
 };
 
 export type SortedWordListResult = {
-  groups: WordListGroup[];
+    groups: WordListGroup[];
 };

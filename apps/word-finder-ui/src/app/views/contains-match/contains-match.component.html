@@ -1,43 +1,52 @@
 <form (ngSubmit)="search()" class="mb-3">
-  <div class="mb-3 input-field">
-    <div class="form-lable">Start With:</div>
-    <input
-      name="starts-with"
-      type="text"
-      class="form-control"
-      placeholder="Starts with..."
-      aria-label="Starts with"
-      [(ngModel)]="startsWith"
-    />
-  </div>
+    <div class="mb-3 input-field">
+        <div class="form-lable">Start With:</div>
+        <input
+            name="starts-with"
+            type="search"
+            class="form-control"
+            placeholder="Starts with..."
+            aria-label="Starts with"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            [(ngModel)]="startsWith"
+        />
+    </div>
 
-  <div class="mb-3 input-field">
-    <div class="form-lable">Contains:</div>
-    <input
-      name="contains"
-      type="text"
-      class="form-control"
-      placeholder="Contains..."
-      aria-label="Contains"
-      [(ngModel)]="contains"
-    />
-  </div>
+    <div class="mb-3 input-field">
+        <div class="form-lable">Contains:</div>
+        <input
+            name="contains"
+            type="search"
+            class="form-control"
+            placeholder="Contains..."
+            aria-label="Contains"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            [(ngModel)]="contains"
+        />
+    </div>
 
-  <div class="mb-3 input-field">
-    <div class="form-lable">Ends With:</div>
-    <input
-      name="ends-with"
-      type="text"
-      class="form-control"
-      placeholder="Ends with..."
-      aria-label="Ends with"
-      [(ngModel)]="endsWith"
-    />
-  </div>
+    <div class="mb-3 input-field">
+        <div class="form-lable">Ends With:</div>
+        <input
+            name="ends-with"
+            type="search"
+            class="form-control"
+            placeholder="Ends with..."
+            aria-label="Ends with"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            [(ngModel)]="endsWith"
+        />
+    </div>
 
-  <div class="mb-3 input-field">
-    <button class="btn btn-outline-secondary" type="submit">Search</button>
-  </div>
+    <div class="mb-3 input-field">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
 </form>
 
 <app-words-list-result [wordList]="foundWords()"></app-words-list-result>

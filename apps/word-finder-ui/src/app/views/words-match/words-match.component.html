@@ -1,21 +1,24 @@
 <form (ngSubmit)="search()" class="mb-3">
-  <div class="input-group mb-3">
-    <input
-      name="search-input"
-      type="text"
-      class="form-control"
-      placeholder="Search for a word"
-      aria-label="Search for a word"
-      [(ngModel)]="word"
-      #searchInput
-    />
-    <button class="btn btn-outline-secondary" type="submit">Search</button>
-  </div>
+    <div class="input-group mb-3">
+        <input
+            name="search-input"
+            type="search"
+            class="form-control"
+            placeholder="Search for a word"
+            aria-label="Search for a word"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            [(ngModel)]="word"
+            #searchInput
+        />
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
 
-  <div class="form-text">
-    Use wilcards such as <em>_ (or space)</em> for any single character or
-    <em>* (or shift+space)</em> for any group of characters
-  </div>
+    <div class="form-text">
+        Use wilcards such as <em>_ (or space)</em> for any single character or
+        <em>* (or shift+space)</em> for any group of characters
+    </div>
 </form>
 
 <app-words-list-result [wordList]="foundWords()"></app-words-list-result>

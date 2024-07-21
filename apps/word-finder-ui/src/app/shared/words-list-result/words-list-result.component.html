@@ -1,19 +1,21 @@
 @if (wordList().length > 0) {
-  <div>Found {{ wordList().length }} words</div>
+    <div class="mb-3">Found {{ wordList().length }} words</div>
 
-  @for (group of sortedWordList().groups; track group.count) {
-    Size: {{ group.count }}
+    <div class="mb-3">
+        <app-words-nav-section
+            [wordList]="sortedWordList()"
+            (scrollTo)="scrollTo($event)"
+        ></app-words-nav-section>
+    </div>
 
-    <ul>
-      @for (word of group.words; track word) {
-        <li>
-          <button class="btn btn-link" (click)="openDictionary(word)">
-            {{ word }}
-          </button>
-        </li>
-      }
-    </ul>
-  }
+    <div class="mb-3">
+        @for (group of sortedWordList().groups; track group.count) {
+            <app-words-group-section
+                [group]="group"
+                (onClick)="openDictionary($event)"
+            ></app-words-group-section>
+        }
+    </div>
 } @else {
-  <div>No words found</div>
+    <div>No words found</div>
 }

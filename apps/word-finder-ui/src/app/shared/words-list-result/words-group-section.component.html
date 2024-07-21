@@ -1,0 +1,13 @@
+<section #section>
+    Size: {{ group().count }}
+
+    <ul>
+        @for (word of group().words; track word) {
+            <li>
+                <button class="btn btn-link" (click)="openDictionary(word)">
+                    {{ word }}
+                </button>
+            </li>
+        }
+    </ul>
+</section>

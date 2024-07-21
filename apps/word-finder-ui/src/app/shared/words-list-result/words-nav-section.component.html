@@ -1,0 +1,7 @@
+<div class="nav" #nav>
+    @for (group of wordList().groups; track group; let idx = $index) {
+        <button class="btn btn-link" (click)="onClick(idx)">
+            {{ group.count }} characters
+        </button>
+    }
+</div>

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WordsListResultComponent } from './words-list-result.component';
+import { WordsNavSectionComponent } from './words-nav-section.component';
 
-describe('WordsListResultComponent', () => {
-    let component: WordsListResultComponent;
-    let fixture: ComponentFixture<WordsListResultComponent>;
+describe('WordsNavSectionComponent', () => {
+    let component: WordsNavSectionComponent;
+    let fixture: ComponentFixture<WordsNavSectionComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [WordsListResultComponent],
+            imports: [WordsNavSectionComponent],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(WordsListResultComponent);
+        fixture = TestBed.createComponent(WordsNavSectionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

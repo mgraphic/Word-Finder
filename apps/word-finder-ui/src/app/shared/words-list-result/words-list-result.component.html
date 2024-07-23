@@ -1,7 +1,7 @@
 @if (wordList().length > 0) {
     <div class="mb-3">Found {{ wordList().length }} words</div>
 
-    <div class="mb-3">
+    <div class="mb-3 jump-to-nav">
         <app-words-nav-section
             [wordList]="sortedWordList()"
             (scrollTo)="scrollTo($event)"

@@ -4,14 +4,21 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #c7cbff;
+    min-width: 344px;
 }
 
 nav {
     display: flex;
+    gap: 0.5rem;
     justify-content: space-evenly;
 
-    button.active {
-        background-color: bootstrap.$primary;
+    button {
+        background-color: #fff;
+
+        &.active {
+            background-color: bootstrap.$primary;
+        }
     }
 }
 
@@ -19,6 +26,14 @@ nav {
     padding: 0;
     flex: 1;
     border: 1px solid bootstrap.$primary;
+    background-color: #fff;
+    margin-bottom: 1rem;
+
+    @include bootstrap.media-breakpoint-down(sm) {
+        & {
+            margin-bottom: 0;
+        }
+    }
 }
 
 #scroll-top {

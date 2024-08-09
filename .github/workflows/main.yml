@@ -18,7 +18,7 @@ jobs:
                   envs: ${{ toJson(secrets) }}
                   command: |
                       cd ${{ vars.DO_APP_PATH }}
-                      git pull origin main --allow-unrelated-histories
+                      git pull
                       echo 'ACCESS_TOKEN=$APP_ACCESS_TOKEN' > .env
                       docker compose down
                       docker rmi -f $(docker images -aq)

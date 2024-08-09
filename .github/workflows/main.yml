@@ -15,11 +15,10 @@ jobs:
                   host: ${{ vars.DO_SSH_HOST }}
                   key: ${{ secrets.DO_SSH_KEY }}
                   user: ${{ secrets.DO_SSH_USER }}
-                  envs: ${{ toJson(secrets) }}
                   command: |
                       cd ${{ vars.DO_APP_PATH }}
-                      sudo git pull origin main --allow-unrelated-histories
-                      echo 'ACCESS_TOKEN=$APP_ACCESS_TOKEN' > .env
+                      git pull
+                      echo 'ACCESS_TOKEN=${{ vars.APP_ACCESS_TOKEN }}' > .env
                       docker compose down
                       docker rmi -f $(docker images -aq)
                       docker compose up --build -d

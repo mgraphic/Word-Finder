@@ -18,7 +18,7 @@ jobs:
                   command: |
                       cd ${{ vars.DO_APP_PATH }}
                       git pull
-                      echo 'ACCESS_TOKEN=${{ vars.APP_ACCESS_TOKEN }}' > .env
+                      echo 'ACCESS_TOKEN=${{ secrets.APP_ACCESS_TOKEN }}' > .env
                       docker compose down
                       docker rmi -f $(docker images -aq)
                       docker compose up --build -d

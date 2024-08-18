@@ -1,12 +1,14 @@
+<div align="center">
+
 # Word Finder API and UI Application
 
-_Developed with NodeJS V18.20.3_
+<a href="https://blog.angular.dev/angular-v18-is-now-available-e79d5ac0affe"><img src="https://img.shields.io/badge/Built%20With%20Angular%20v18-blue?logo=angular&logoColor=white" alt="Angular 18" /></a> <a href="https://nodejs.org"><img src="https://img.shields.io/badge/NodeJS-v18.20.3-blue?logo=nodedotjs&logoColor=%23fff" alt="NodeJS v18.20.3" /></a> <a href="https://github.com/mgraphic/Word-Finder/actions/workflows/main.yml"><img src="https://github.com/mgraphic/Word-Finder/actions/workflows/main.yml/badge.svg?branch=main" alt="Deploy To Digital Ocean" /></a>
 
----
+<strong>DEMO: http://word-finder.kmarshall.com</strong>
 
-DEMO: http://word-finder.kmarshall.com
+</div>
 
----
+<br />
 
 ## Installing & Running Locally
 

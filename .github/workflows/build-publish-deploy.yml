@@ -1,0 +1,42 @@
+name: Docker Publish
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build-publish-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Login to Docker Hub
+              run: |
+                  docker login -u marshallgraphics -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Build
+              run: |
+                  docker compose build
+
+            - name: Publish
+              run: |
+                  docker compose push
+
+            - name: SSH Deploy
+              uses: easingthemes/ssh-deploy@v5.1.0
+              with:
+                  SSH_PRIVATE_KEY: ${{ secrets.PRIVATEKEY }}
+                  ARGS: '-rlgoDzvc -i'
+                  REMOTE_HOST: ${{ vars.HOST }}
+                  REMOTE_USER: ${{ secrets.USERNAME }}
+                  SOURCE: './docker-compose.yml'
+                  TARGET: '~'
+                  SCRIPT_AFTER: |
+                      cd ~
+                      docker compose down
+                      docker rmi -f $(docker images -aq)
+                      docker compose pull
+                      docker compose up -d
+                      echo $RSYNC_STDOUT

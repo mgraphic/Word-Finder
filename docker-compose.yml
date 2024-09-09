@@ -17,39 +17,28 @@
 # docker rm $(docker ps -a -q)
 
 services:
-    gateway:
+    api:
+        image: 'marshallgraphics/word-finder-api:latest'
+        build:
+            context: ./apps/word-list-api
+            dockerfile: Dockerfile
+        container_name: word-finder-api
+        restart: on-failure
+        ports:
+            - '3000:3000'
+        volumes:
+            - .:/code
+
+    ui:
+        image: 'marshallgraphics/word-finder-ui:latest'
+        build:
+            context: ./apps/word-finder-ui
+            dockerfile: Dockerfile
+        container_name: word-finder-ui
+        restart: always # because it is routing traffic to our entire app
         depends_on:
             - api
-            - angular
-        build:
-            context: ./apps/gateway
-            dockerfile: Dockerfile
-        restart: always # because it is routing traffic to our entire app
-        container_name: word-finder-gateway
         ports:
             - '80:80'
         expose:
             - 80
-
-    api:
-        build:
-            context: ./apps/word-list-api
-            dockerfile: Dockerfile
-        ports:
-            - '3001:3001'
-        volumes:
-            - .:/code
-        restart: on-failure
-        container_name: word-list-api
-        environment:
-            - ACCESS_TOKEN=${ACCESS_TOKEN}
-
-    angular:
-        build:
-            context: ./apps/word-finder-ui
-            dockerfile: Dockerfile
-            args:
-                - ACCESS_TOKEN=${ACCESS_TOKEN}
-        container_name: word-finder-ui
-        ports:
-            - 3000:3000

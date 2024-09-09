@@ -24,11 +24,11 @@
 
 From the terminal, cd into the app directory and install the Node packages and run the application.
 
-    ```bash
-    cd apps/word-list-api
-    npm ci
-    npm start
-    ```
+```bash
+cd apps/word-list-api
+npm ci
+npm start
+```
 
 ### Word Finder UI
 

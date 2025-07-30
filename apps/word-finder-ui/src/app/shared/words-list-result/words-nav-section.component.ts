@@ -17,6 +17,7 @@ import { SortedWordListResult } from './words-list-result.model';
 })
 export class WordsNavSectionComponent {
     private readonly nav = viewChild.required<ElementRef<HTMLElement>>('nav');
+    readonly word = input<string>();
 
     @HostListener('wheel', ['$event'])
     onScroll($event: WheelEvent): void {

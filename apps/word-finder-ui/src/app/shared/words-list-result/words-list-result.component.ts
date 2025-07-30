@@ -34,6 +34,7 @@ export class WordsListResultComponent {
     private readonly groupSections!: QueryList<WordsGroupSectionComponent>;
     private readonly dialog = inject(MatDialog);
 
+    readonly word = input<string>();
     readonly wordList = input.required<WordMatchResponse>();
     readonly sortedWordList: Signal<SortedWordListResult> = computed(() =>
         this.sortWordList()

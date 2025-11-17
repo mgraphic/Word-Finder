@@ -1,5 +1,12 @@
 import { RequireAtLeastOne } from './shared.model';
 
+export interface WordMatchHtmlEntry {
+    text: string;
+    html: string;
+}
+
+export type WordMatchHiliteResponse = WordMatchHtmlEntry[];
+
 export type WordMatchResponse = string[];
 
 export type ContainsMatchRequest = RequireAtLeastOne<

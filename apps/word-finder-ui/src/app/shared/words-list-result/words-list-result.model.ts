@@ -1,6 +1,8 @@
+import { WordMatchHtmlEntry } from '../word-match.model';
+
 export type WordListGroup = {
     count: number;
-    words: string[];
+    words: string[] | WordMatchHtmlEntry[];
 };
 
 export type SortedWordListResult = {

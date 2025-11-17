@@ -9,7 +9,10 @@ import {
 import { take } from 'rxjs';
 import { SharedModule } from '../../shared/shared.module';
 import { WordFinderService } from '../../shared/word-finder.service';
-import { WordMatchResponse } from '../../shared/word-match.model';
+import {
+    WordMatchHiliteResponse,
+    WordMatchResponse,
+} from '../../shared/word-match.model';
 import { WordsListResultComponent } from '../../shared/words-list-result/words-list-result.component';
 
 @Component({
@@ -21,7 +24,7 @@ import { WordsListResultComponent } from '../../shared/words-list-result/words-l
 })
 export class CharMatchComponent implements AfterViewInit {
     readonly searchInput = viewChild<ElementRef>('searchInput');
-    readonly foundWords = signal<WordMatchResponse>([]);
+    readonly foundWords = signal<WordMatchHiliteResponse>([]);
     readonly characters = signal<string>('');
 
     private readonly wordFinderService = inject(WordFinderService);
@@ -46,7 +49,7 @@ export class CharMatchComponent implements AfterViewInit {
         }
 
         this.wordFinderService
-            .getCharMatch(this.characters())
+            .getCharMatchHighlighted(this.characters())
             .pipe(take(1))
             .subscribe({
                 next: this.foundWords.set,

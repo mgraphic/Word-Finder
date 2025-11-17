@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { ContainsMatchRequest, WordMatchResponse } from './word-match.model';
+import {
+    ContainsMatchRequest,
+    WordMatchHiliteResponse,
+    WordMatchHtmlEntry,
+    WordMatchResponse,
+} from './word-match.model';
 
 @Injectable({
     providedIn: 'root',
@@ -17,7 +22,9 @@ export class WordFinderService {
             .get<WordMatchResponse>(
                 `${this.basePath}/word-match/${encodeURIComponent(word)}`
             )
-            .pipe(map(this.filterWordLength));
+            .pipe(
+                map((data: WordMatchResponse) => this.filterWordLength(data))
+            );
     }
 
     getCharMatch(word: string): Observable<WordMatchResponse> {
@@ -25,7 +32,22 @@ export class WordFinderService {
             .get<WordMatchResponse>(
                 `${this.basePath}/char-match/${encodeURIComponent(word)}`
             )
-            .pipe(map(this.filterWordLength));
+            .pipe(
+                map((data: WordMatchResponse) => this.filterWordLength(data))
+            );
+    }
+
+    getCharMatchHighlighted(word: string): Observable<WordMatchHiliteResponse> {
+        return this.http
+            .get<WordMatchHiliteResponse>(
+                `${this.basePath}/char-match/${encodeURIComponent(word)}`,
+                { params: { hilite: 'true' } }
+            )
+            .pipe(
+                map((data: WordMatchHiliteResponse) =>
+                    this.filterWordLength(data)
+                )
+            );
     }
 
     getContainsMatch(
@@ -33,13 +55,37 @@ export class WordFinderService {
     ): Observable<WordMatchResponse> {
         return this.http
             .post<WordMatchResponse>(`${this.basePath}/contains-match`, match)
-            .pipe(map(this.filterWordLength));
+            .pipe(
+                map((data: WordMatchResponse) => this.filterWordLength(data))
+            );
     }
 
-    private filterWordLength(wordsList: WordMatchResponse): WordMatchResponse {
-        return wordsList.filter(
-            (word: string): boolean =>
-                word.length >= WordFinderService.MIN_WORD_LENGTH
+    private filterWordLength(wordsList: WordMatchResponse): WordMatchResponse;
+    private filterWordLength(
+        wordsList: WordMatchHiliteResponse
+    ): WordMatchHiliteResponse;
+    private filterWordLength(
+        wordsList: WordMatchResponse | WordMatchHiliteResponse
+    ): WordMatchResponse | WordMatchHiliteResponse {
+        if (wordsList.length === 0) {
+            return wordsList;
+        }
+
+        // Check if it's WordMatchHiliteResponse (array of WordMatchHtmlEntry objects)
+        if (
+            typeof wordsList[0] === 'object' &&
+            'text' in wordsList[0] &&
+            'html' in wordsList[0]
+        ) {
+            return (wordsList as WordMatchHiliteResponse).filter(
+                (wordEntry: WordMatchHtmlEntry) =>
+                    wordEntry.text.length >= WordFinderService.MIN_WORD_LENGTH
+            );
+        }
+
+        // Otherwise it's WordMatchResponse (array of strings)
+        return (wordsList as WordMatchResponse).filter(
+            (word: string) => word.length >= WordFinderService.MIN_WORD_LENGTH
         );
     }
 }

@@ -127,3 +127,125 @@ export function escapeRegExp(text: string, ignore: string[] = []): string {
 
     return text.replaceAll(expression, '\\$&');
 }
+
+export function istrue(value: unknown): boolean {
+    if (typeof value === 'string') {
+        return ['1', 'true', 'yes', 'y', 'on'].includes(value.toLowerCase());
+    }
+
+    return Boolean(value);
+}
+
+export function isHiliteRequested(url: string): boolean {
+    const queryString = url.toLowerCase().split('?')[1]?.trim() || '';
+
+    if (!queryString) {
+        return false;
+    }
+
+    if (queryString.includes('hilite') && !queryString.includes('hilite=')) {
+        return true;
+    }
+
+    const params = new URLSearchParams(queryString);
+
+    if (params.has('hilite')) {
+        return istrue(params.get('hilite'));
+    }
+
+    return false;
+}
+
+export function hiliteMatch(word: string, lookup: string): string {
+    const lookupChars = getCharCountFromString(lookup.toLowerCase());
+    let hilitedWord = '';
+
+    for (const char of word) {
+        // console.log(char);
+        const lowerChar = char.toLowerCase();
+        if (lookupChars[lowerChar] !== undefined) {
+            lookupChars[lowerChar]--;
+            if (lookupChars[lowerChar] < 0) {
+                hilitedWord += `<mark>${char}</mark>`;
+            } else {
+                hilitedWord += char;
+            }
+        } else {
+            hilitedWord += `<mark>${char}</mark>`;
+        }
+    }
+    return hilitedWord;
+
+    // const lookupChars = getCharCountFromString(lookup.toLowerCase());
+    // console.log('lookupChars:', lookupChars);
+    // console.log('word:', getCharCountFromString(word.toLowerCase()));
+    // let hilitedWord = '';
+    // const usedChars: CharCount = {};
+
+    // for (const char of word) {
+    //     const lowerChar = char.toLowerCase();
+    //     const usedCount = usedChars[lowerChar] ?? 0;
+
+    //     if (
+    //         lookupChars[lowerChar] !== undefined &&
+    //         usedCount < lookupChars[lowerChar]
+    //     ) {
+    //         hilitedWord += char;
+    //         usedChars[lowerChar] = usedCount + 1;
+    //     } else {
+    //         hilitedWord += `<hilite>${char}</hilite>`;
+    //     }
+    // }
+
+    // return hilitedWord;
+
+    return word; // Placeholder implementation
+
+    // const lookupChars = getCharCountFromString(lookup.toLowerCase());
+    // let hilitedWord = '';
+    // const usedChars: CharCount = {};
+
+    // for (const char of word) {
+    //     const lowerChar = char.toLowerCase();
+
+    //     if (lookupChars[lowerChar] !== undefined) {
+    //         const usedCount = usedChars[lowerChar] ?? 0;
+    //         if (usedCount < lookupChars[lowerChar]) {
+    //             hilitedWord += char;
+    //             usedChars[lowerChar] = usedCount + 1;
+    //         } else {
+    //             hilitedWord += `<hilite>${char}</hilite>`;
+    //         }
+    //     } else {
+    //         hilitedWord += `<hilite>${char}</hilite>`;
+    //     }
+    // }
+
+    // return hilitedWord;
+
+    // const lookupChars = getCharCountFromString(lookup.toLowerCase());
+    // let hilitedWord = '';
+    // const spentChars: CharCount = { '*': 0 };
+
+    // for (const char of word) {
+    //     const lowerChar = char.toLowerCase();
+
+    //     if (lookupChars[lowerChar] !== undefined) {
+    //         if ((spentChars[lowerChar] ?? 0) < lookupChars[lowerChar]) {
+    //             hilitedWord += `<hilite>${char}</hilite>`;
+
+    //             if (spentChars[lowerChar] === undefined) {
+    //                 spentChars[lowerChar] = 0;
+    //             }
+
+    //             spentChars[lowerChar]++;
+    //         } else {
+    //             hilitedWord += char;
+    //         }
+    //     } else {
+    //         hilitedWord += char;
+    //     }
+    // }
+
+    // return hilitedWord;
+}

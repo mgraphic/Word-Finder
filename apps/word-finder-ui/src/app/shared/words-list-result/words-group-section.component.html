@@ -2,10 +2,14 @@
     Size: {{ group().count }}
 
     <ul>
-        @for (word of group().words; track word) {
+        @for (word of group().words; track getWordText(word)) {
             <li>
                 <button class="btn btn-link" (click)="openDictionary(word)">
-                    {{ word }}
+                    @if (isHtmlEntry(word)) {
+                        <span [innerHTML]="getWordDisplay(word)"></span>
+                    } @else {
+                        {{ getWordDisplay(word) }}
+                    }
                 </button>
             </li>
         }

@@ -24,6 +24,7 @@ function generateWordsList(lang: string): Promise<string[]> {
 
                 const wordsList = lines
                     .map((line) => line.trim())
+                    .filter((line) => line.length >= 3)
                     .filter((line) => line !== '');
 
                 resolve(wordsList);

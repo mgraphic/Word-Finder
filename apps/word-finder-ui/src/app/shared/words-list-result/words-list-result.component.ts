@@ -11,7 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { DictionaryModalComponent } from '../dictionary/dictionary-modal.component';
 import { SharedModule } from '../shared.module';
-import { WordMatchResponse } from '../word-match.model';
+import {
+    WordMatchHiliteResponse,
+    WordMatchResponse,
+    WordMatchHtmlEntry,
+} from '../word-match.model';
 import { WordsGroupSectionComponent } from './words-group-section.component';
 import { SortedWordListResult, WordListGroup } from './words-list-result.model';
 import { WordsNavSectionComponent } from './words-nav-section.component';
@@ -35,7 +39,9 @@ export class WordsListResultComponent {
     private readonly dialog = inject(MatDialog);
 
     readonly word = input<string>();
-    readonly wordList = input.required<WordMatchResponse>();
+    readonly wordList = input.required<
+        WordMatchResponse | WordMatchHiliteResponse
+    >();
     readonly sortedWordList: Signal<SortedWordListResult> = computed(() =>
         this.sortWordList()
     );
@@ -49,15 +55,36 @@ export class WordsListResultComponent {
         this.groupSections.get(index)?.scroll();
     }
 
-    private sortWordList(): SortedWordListResult {
-        const wordList = this.wordList();
-        const groups = wordList.reduce((groups, word) => {
-            const group = groups.find((g) => g.count === word.length);
+    private sortWordList(): SortedWordListResult;
+    private sortWordList(wordList: WordMatchResponse): SortedWordListResult;
+    private sortWordList(
+        wordList: WordMatchHiliteResponse
+    ): SortedWordListResult;
+    private sortWordList(
+        wordList?: WordMatchResponse | WordMatchHiliteResponse
+    ): SortedWordListResult {
+        const list = wordList || this.wordList();
+
+        if (list.length === 0) {
+            return { groups: [] };
+        }
+
+        // Check if it's WordMatchHiliteResponse (array of WordMatchHtmlEntry objects)
+        const isHiliteResponse =
+            typeof list[0] === 'object' &&
+            'text' in list[0] &&
+            'html' in list[0];
+
+        const groups = list.reduce((groups, word) => {
+            const wordLength = isHiliteResponse
+                ? (word as WordMatchHtmlEntry).text.length
+                : (word as string).length;
+            const group = groups.find((g) => g.count === wordLength);
 
             if (group) {
-                group.words.push(word);
+                group.words.push(word as any);
             } else {
-                groups.push({ count: word.length, words: [word] });
+                groups.push({ count: wordLength, words: [word as any] });
             }
 
             return groups;

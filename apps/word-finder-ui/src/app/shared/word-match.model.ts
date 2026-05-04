@@ -14,6 +14,7 @@ export type ContainsMatchRequest = RequireAtLeastOne<
         startsWith?: string;
         contains?: string;
         endsWith?: string;
+        length?: number;
     },
-    'startsWith' | 'contains' | 'endsWith'
+    'startsWith' | 'contains' | 'endsWith' | 'length'
 >;

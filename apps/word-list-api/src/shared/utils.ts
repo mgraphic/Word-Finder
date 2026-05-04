@@ -15,9 +15,9 @@ export function wordMatchSearch(word: string): string[] {
 }
 
 export function wordContainsMatchSearch(
-    options: ContainsMatchRequest
+    options: ContainsMatchRequest,
 ): string[] {
-    const { startsWith, contains, endsWith } = options;
+    const { startsWith, contains, endsWith, length } = options;
     const parts: string[] = [];
 
     if (startsWith) {
@@ -34,7 +34,13 @@ export function wordContainsMatchSearch(
 
     const expression = new RegExp(parts.join('.*'), 'i');
 
-    return wordsList.filter((x) => x.match(expression));
+    let result = [...wordsList];
+
+    if (length !== undefined && !isNaN(length) && length >= 3) {
+        result = result.filter((x) => x.length === length);
+    }
+
+    return result.filter((x) => x.match(expression));
 }
 
 export function charMatchSearch(lookup: string): string[] {
@@ -122,7 +128,7 @@ export function escapeRegExp(text: string, ignore: string[] = []): string {
     ].filter((x) => !ignore.includes(x));
     const expression = new RegExp(
         `[${rec.join('').replaceAll(']', '\\]')}]`,
-        'g'
+        'g',
     );
 
     return text.replaceAll(expression, '\\$&');

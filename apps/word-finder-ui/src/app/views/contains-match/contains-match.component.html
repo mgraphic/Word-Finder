@@ -1,6 +1,6 @@
 <form (ngSubmit)="search()" class="mb-3">
     <div class="mb-3 input-field">
-        <div class="form-lable">Start With:</div>
+        <div class="form-lable">Start With: (optional)</div>
         <input
             name="starts-with"
             type="search"
@@ -16,7 +16,7 @@
     </div>
 
     <div class="mb-3 input-field">
-        <div class="form-lable">Contains:</div>
+        <div class="form-lable">Contains: (optional)</div>
         <input
             name="contains"
             type="search"
@@ -32,7 +32,7 @@
     </div>
 
     <div class="mb-3 input-field">
-        <div class="form-lable">Ends With:</div>
+        <div class="form-lable">Ends With: (optional)</div>
         <input
             name="ends-with"
             type="search"
@@ -44,6 +44,22 @@
             autocapitalize="off"
             spellcheck="false"
             [(ngModel)]="endsWith"
+        />
+    </div>
+
+    <div class="mb-3 input-field">
+        <div class="form-lable">Length: (optional, minimum 3)</div>
+        <input
+            name="length"
+            type="number"
+            class="form-control"
+            placeholder="Length..."
+            aria-label="Length"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            [(ngModel)]="length"
         />
     </div>
 

@@ -23,6 +23,7 @@ export class ContainsMatchComponent {
     readonly startsWith = signal<string>('');
     readonly contains = signal<string>('');
     readonly endsWith = signal<string>('');
+    readonly length = signal<string>('');
     readonly foundWords = signal<WordMatchResponse>([]);
 
     private readonly wordFinderService = inject(WordFinderService);
@@ -33,6 +34,7 @@ export class ContainsMatchComponent {
                 startsWith: this.startsWith(),
                 contains: this.contains(),
                 endsWith: this.endsWith(),
+                length: this.length() ? parseInt(this.length(), 10) : undefined,
             })
             .pipe(take(1))
             .subscribe({

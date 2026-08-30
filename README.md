@@ -14,6 +14,8 @@
     <a href="https://hub.docker.com/u/marshallgraphics">https://hub.docker.com/u/marshallgraphics</a>
 </p>
 
+<img src="word-finder.png" alt="Word Finder logo" />
+
 </div>
 
 <br />
